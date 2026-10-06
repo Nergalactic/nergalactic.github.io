@@ -4,22 +4,90 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nergalactic</title>
-<style>
-  :root { --bg: #f4f8fa; --fg: #1d2b36; --muted: #4f6676; --link: #1d70b8; }
-  @media (prefers-color-scheme: dark) { :root { --bg: #0f2230; --fg: #eef4f6; --muted: #a9c0cc; --link: #8fd0ff; } }
-  body { background: var(--bg); color: var(--fg); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; margin: 0; padding: 48px 16px; }
-  main { max-width: 640px; margin: 0 auto; }
-  h1 { margin: 0 0 8px; font-size: 2rem; }
-  p { color: var(--muted); }
-  a { color: var(--link); }
-</style>
+<meta name="description" content="Small, cozy games from our corner of the galaxy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Exo+2:wght@400;600&display=swap">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
+<header class="bar">
+  <a class="logo" href="./">NERGALACTIC</a>
+  <nav>
+    <a href="#games">GAMES</a>
+    <a href="#hello">SAY HELLO</a>
+  </nav>
+</header>
+
 <main>
-<h1>Nergalactic</h1>
-<p>Small, cozy games.</p>
-<h2>Fillet Frenzy</h2>
-<p><a href="fillet-frenzy/privacy.html">Privacy policy</a></p>
+  <section class="hero">
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <div class="hero-text">
+      <h1>SMALL, COZY GAMES FROM OUR CORNER OF THE GALAXY</h1>
+      <p>We make games you can settle into after a long day. Tell us what you'd love to play next, and we'll listen.</p>
+      <div class="actions">
+        <a class="btn" href="#games">SEE OUR GAMES</a>
+        <a class="btn ghost" href="#hello">SEND US AN IDEA</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="games" class="wrap">
+    <h2>OUR GAMES</h2>
+    <article class="game">
+      <img src="img/fillet-frenzy.jpg" alt="Fillet Frenzy: a busy seaside fish shack with chefs and stacks of fish" width="1024" height="500">
+      <div class="game-text">
+        <div class="game-title">
+          <img src="img/fillet-frenzy-icon.png" alt="" width="56" height="56">
+          <h3>FILLET FRENZY</h3>
+        </div>
+        <p>Catch, cut, cook and sell. Grow a seaside fish shack into a whole fishing fleet, then hunt the legendary Golden Marlin.</p>
+        <div class="game-links">
+          <span class="soon">COMING SOON TO GOOGLE PLAY</span>
+          <a href="fillet-frenzy/privacy.html">Privacy policy</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section id="hello" class="wrap">
+    <div class="hello">
+      <div>
+        <h2>GOT AN IDEA OR FOUND A BUG?</h2>
+        <p>Player suggestions shape every update. Write to us any time.</p>
+      </div>
+      <a class="mail" href="mailto:nergalactic@gmail.com">nergalactic@gmail.com</a>
+    </div>
+  </section>
 </main>
+
+<footer class="foot">
+  <span>© 2026 Nergalactic</span>
+  <span>Made with care, one cozy game at a time</span>
+</footer>
+
+<script>
+// A quiet starfield behind the hero: drawn once, no animation
+(function () {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  function draw() {
+    const r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    c.width = r.width * d; c.height = r.height * d;
+    ctx.scale(d, d);
+    let seed = 7;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const n = Math.round(r.width * r.height / 6000);
+    for (let i = 0; i < n; i++) {
+      const s = rnd() < 0.12 ? 1.6 : rnd() < 0.5 ? 1 : 0.6;
+      ctx.globalAlpha = 0.35 + rnd() * 0.6;
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(rnd() * r.width, rnd() * r.height, s, 0, Math.PI * 2); ctx.fill();
+    }
+  }
+  draw();
+  let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 150); });
+})();
+</script>
 </body>
 </html>
