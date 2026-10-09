@@ -42,6 +42,7 @@ h1, h2, h3 { font-family: var(--display); color: #fff; margin: 0; text-wrap: bal
 .wrap { max-width: 1160px; margin: 0 auto; padding: 56px 16px 0; }
 .wrap > h2 { font-weight: 600; font-size: 26px; letter-spacing: 3px; text-align: center; margin-bottom: 24px; }
 
+.game + .game { margin-top: 24px; }
 .game { display: flex; flex-wrap: wrap; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .game > img { flex: 1 1 420px; min-width: 0; width: 100%; height: auto; max-width: 600px; object-fit: cover; display: block; }
 .game-text { flex: 1 1 320px; min-width: 0; padding: 28px 32px; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
